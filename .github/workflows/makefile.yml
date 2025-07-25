@@ -1,0 +1,26 @@
+name: wch gcc compile
+
+on:
+  workflow_dispatch:
+
+run-name: |
+  ${{ github.actor }} 🚀
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Get GCC
+      run: |
+        wget https://github.com/fiskov/compilers/blob/main/wch_GCC_82_imacOnly.tar.xz
+        tar -xzf wch_GCC_82_imacOnly.tar.xz
+        echo "${PWD}/RISC-V_Embedded_GCC/bin" >> $GITHUB_PATH
+
+    - name: Build
+      run: make GCC_TOOLCHAIN=$GITHUB_PATH GCC_PREFIX=riscv-none-embed-
+
+      
+
