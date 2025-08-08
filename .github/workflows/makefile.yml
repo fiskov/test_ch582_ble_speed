@@ -16,8 +16,10 @@ jobs:
     - name: Get GCC
       run: wget https://github.com/fiskov/compilers/releases/download/0.0.1/RISC-V_Embedded_GCC12.tar.xz
     - name: Unpack GCC
-      run: tar xf RISC-V_Embedded_GCC12.tar.xz \
-        echo "${PWD}/RISC-V_Embedded_GCC/bin" >> $GITHUB_PATH
+      run: |
+        tar xf RISC-V_Embedded_GCC12.tar.xz
+        GITHUB_PATH=$("${PWD}/RISC-V_Embedded_GCC/bin")
+        echo ${GITHUB_PATH}
 
     - name: Build
       run: make GCC_TOOLCHAIN=${GITHUB_PATH}
