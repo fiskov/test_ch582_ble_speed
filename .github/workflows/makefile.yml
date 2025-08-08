@@ -19,10 +19,10 @@ jobs:
     - name: Unpack GCC
       run: |
         tar xf RISC-V_Embedded_GCC12.tar.xz
-        export GITHUB_PATH=${PWD}/RISC-V_Embedded_GCC/bin
+        echo "GCC_PATH=$PWD/RISC-V_Embedded_GCC/bin" >> "$GITHUB_ENV"
 
     - name: Build
-      run: make GCC_TOOLCHAIN=${GITHUB_PATH}
+      run: make GCC_TOOLCHAIN=$GCC_PATH
 
       
 
