@@ -14,9 +14,9 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Get GCC
-      run: |
-        wget https://github.com/fiskov/compilers/releases/download/0.0.1/RISC-V_Embedded_GCC12.tar.xz
-        tar xf RISC-V_Embedded_GCC12.tar.xz
+      run: wget https://github.com/fiskov/compilers/releases/download/0.0.1/RISC-V_Embedded_GCC12.tar.xz
+    - name: Unpack GCC
+      run: tar xf RISC-V_Embedded_GCC12.tar.xz \
         echo "${PWD}/RISC-V_Embedded_GCC/bin" >> $GITHUB_PATH
 
     - name: Build
