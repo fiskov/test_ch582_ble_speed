@@ -21,8 +21,12 @@ jobs:
     - name: Build
       run: |
         make GCC_TOOLCHAIN=$PWD/RISC-V_Embedded_GCC12/bin
+
+    - name: version
+      run: |
         echo "VERSION=$(cat version)" >> "$GITHUB_ENV"
         tar --transform 's,.*/,,g' -cvzf fw_$VERSION.tar.gz version _build/app.bin
+        ls -ahl
 
     - name: release
       uses: actions/create-release@v1
