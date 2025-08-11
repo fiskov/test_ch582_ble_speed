@@ -3,8 +3,7 @@ name: wch gcc compile
 on:
   workflow_dispatch:
 
-run-name: |
-  ${{ GITHUB_WORKFLOW }} 🚀
+run-name: ${{ GITHUB_WORKFLOW }} 🚀
 
 jobs:
   build:
