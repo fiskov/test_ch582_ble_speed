@@ -4,11 +4,10 @@ on:
   workflow_dispatch:
 
 run-name: |
-  ${{ github.actor }} 🚀
+  ${{ GITHUB_WORKFLOW }} 🚀
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -22,7 +21,21 @@ jobs:
         echo "GCC_PATH=$PWD/RISC-V_Embedded_GCC12/bin" >> "$GITHUB_ENV"
 
     - name: Build
-      run: make GCC_TOOLCHAIN=$GCC_PATH
+      run: |
+        make GCC_TOOLCHAIN=$GCC_PATH
+        echo "FW_MCU_NAME=fw_$(cat version)" >> "$GITHUB_ENV"
+        tar --transform 's,.*/,,g' -cvzf $FW_MCU_NAME.tar.gz version _build/app.bin
 
-      
-
+    - name: Update Nightly Release
+      uses: andelf/nightly-release@main
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: nightly
+        name: "nightly release $$"
+        draft: false
+        prerelease: true
+        body: |
+          This is a nightly binary release
+        files: |
+          $FW_MCU_NAME.tar.gz
