@@ -20,7 +20,7 @@ jobs:
 
     - name: Build
       run: |
-        make GCC_TOOLCHAIN=$PWD/RISC-V_Embedded_GCC12/bin"
+        make GCC_TOOLCHAIN=$PWD/RISC-V_Embedded_GCC12/bin
         echo "FW_MCU_NAME=fw_$(cat version)" >> "$GITHUB_ENV"
         tar --transform 's,.*/,,g' -cvzf $FW_MCU_NAME.tar.gz version _build/app.bin
 
