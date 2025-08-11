@@ -25,7 +25,7 @@ jobs:
     - name: version
       run: |
         echo "VERSION=$(cat version)" >> "$GITHUB_ENV"
-        tar --transform 's,.*/,,g' -cvzf fw_$VERSION.tar.gz version _build/app.bin
+        tar --transform 's,.*/,,g' -cvzf fw_$(cat version).tar.gz version _build/app.bin
         ls -ahl
 
     - name: release
