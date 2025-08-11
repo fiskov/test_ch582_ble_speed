@@ -17,16 +17,15 @@ jobs:
     - name: Unpack GCC
       run: |
         tar xf RISC-V_Embedded_GCC12.tar.xz
-        echo "GCC_PATH=$PWD/RISC-V_Embedded_GCC12/bin" >> "$GITHUB_ENV"
 
     - name: Build
       run: |
-        make GCC_TOOLCHAIN=$GCC_PATH
+        make GCC_TOOLCHAIN=$PWD/RISC-V_Embedded_GCC12/bin"
         echo "FW_MCU_NAME=fw_$(cat version)" >> "$GITHUB_ENV"
         tar --transform 's,.*/,,g' -cvzf $FW_MCU_NAME.tar.gz version _build/app.bin
 
     - name: version
-      run: echo "::set-output name=version::$(cat version)"
+      run: echo "version=fw_$(cat version)" >> "$GITHUB_OUTPUT"
       id: version
 
     - name: release
